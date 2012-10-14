@@ -1,0 +1,22 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
+        <title>透過網路自動安裝 Ubuntu 12.04</title>
+    </head>
+    <body>
+        <h1>透過網路自動安裝 Ubuntu 12.04</h1>
+        <ol>
+            <li>首先要確定有線網路可以使用 DHCP 自動取得 IP 以及連上 Internet</li>
+            <li>從<a href="http://archive.ubuntu.com/ubuntu/dists/precise/main/installer-i386/current/images/netboot/">這裡</a>下載 mini.iso</li>
+            <li>將隨身碟接上有裝 Ubuntu 的電腦，然後執行 `sudo su -c "cat mini.iso &gt; /dev/sdb"`，其中 /dev/sdb 依實際情況調整</li>
+            <li>將隨身碟接上想要安裝 Ubuntu 的電腦，利用 BIOS 開機選單從隨身碟開機</li>
+            <img src="ubuntu-precise-1.png">
+            <li>按下 Tab 鍵輸入 'auto=true preseed/url=fourdollars.github.com' 後按下 Enter 鍵</li>
+            <img src="ubuntu-precise-2.png">
+            <li>決定自己的 hostname</li>
+            <img src="ubuntu-precise-3.png">
+            <li>沒有完整的正體中文翻譯沒關係就先跳過</li>
+        </ol>
+    </body>
+</html>
