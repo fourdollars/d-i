@@ -8,4 +8,4 @@ set -x
 jockey-text -a --no-dbus
 apt-get install --yes $(check-language-support)
 oem-config-prepare --quiet
-wget http://fourdollars.github.com/d-i/precise/sources.list -O /etc/apt/sources.list
+wget http://fourdollars.github.io/d-i/precise/sources.list -O /etc/apt/sources.list
