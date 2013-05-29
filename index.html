@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
-        <title>透過網路自動安裝 Ubuntu 12.04</title>
+        <title>透過網路自動安裝 Ubuntu 12.04.2</title>
         <script type="text/javascript">
 
             var _gaq = _gaq || [];
@@ -18,36 +18,29 @@
         </script>
     </head>
     <body>
-        <h1>透過網路自動安裝 Ubuntu 12.04</h1>
+        <h1>透過網路自動安裝 Ubuntu 12.04.2</h1>
         <ol>
             <li>首先要確定有線網路可以使用 DHCP 自動取得 IP 以及連上 Internet</li>
             <li>從<a href="http://archive.ubuntu.com/ubuntu/dists/precise-updates/main/installer-i386/current/images/quantal-netboot/gtk/">這裡</a>下載 mini.iso</li>
             <li>將隨身碟接上有裝 Ubuntu 的電腦，然後執行 `sudo su -c "cat mini.iso &gt; /dev/sdb"`，其中 /dev/sdb 依實際情況調整</li>
             <li>將隨身碟接上想要安裝 Ubuntu 的電腦，利用 BIOS 開機選單從隨身碟開機</li>
             <img src="precise/0.png">
-            <li>按下 Tab 鍵輸入 'auto=true preseed/url=fourdollars.github.io' 後按下 Enter 鍵</li>
+            <li>按下 Tab 鍵輸入 'auto=true url=fourdollars.github.io netcfg/get_hostname=ubuntu' 後按下 Enter 鍵</li>
             <img src="precise/1.png">
-            <li>決定自己的 hostname</li>
-            <img src="precise/2.png">
-            <li>沒有完整的正體中文翻譯沒關係就先跳過</li>
-            <img src="precise/3.png">
-            <li>然後就是放著讓它自己安裝完，最快約40分鐘左右，依網路頻寬跟速度決定。</li>
-            <li>最後是選擇要將 GRUB 安裝在哪裡，一般都是安裝在 /dev/sda 上面。</li>
-            <img src="precise/4.png">
-            <li>安裝完成後就會自動關機。</li>
+            <li>然後就是放著讓它自己安裝完，最快約40分鐘左右，依網路頻寬跟速度決定，安裝完成後會自動關機。</li>
         </ol>
-        <h2>第一次啟動系統才會進行一連串的設定</h2>
+        <h2>第一次啟動系統進行初始化設定</h2>
         <ul>
             <li>選擇語言</li>
-            <img src="precise/5.png">
+            <img src="precise/2.png">
             <li>選擇時區</li>
-            <img src="precise/6.png">
+            <img src="precise/3.png">
             <li>選擇鍵盤</li>
-            <img src="precise/7.png">
+            <img src="precise/4.png">
             <li>帳號密碼</li>
-            <img src="precise/8.png">
+            <img src="precise/5.png">
             <li>登入畫面</li>
-            <img src="precise/9.png">
+            <img src="precise/6.png">
         </ul>
     </body>
 </html>
