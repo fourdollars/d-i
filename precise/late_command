@@ -9,3 +9,5 @@ jockey-text -a --no-dbus
 apt-get install --yes $(check-language-support)
 oem-config-prepare --quiet
 wget http://fourdollars.github.io/d-i/precise/sources.list -O /etc/apt/sources.list
+apt-get purge --yes $(dpkg-query -W | grep ^linux-headers-3.2.0 | cut -f 1 | xargs echo)
+apt-get autoremove --purge --yes
