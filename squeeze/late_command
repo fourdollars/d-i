@@ -41,25 +41,28 @@ ENDLINE
 # Source List
 cat > /etc/apt/sources.list <<ENDLINE
 deb http://security.debian.org/ squeeze/updates main contrib non-free
-deb-src http://security.debian.org/ squeeze/updates main contrib non-free
+#deb-src http://security.debian.org/ squeeze/updates main contrib non-free
 
-deb http://ftp.tw.debian.org/debian/ squeeze main contrib non-free
-deb-src http://ftp.tw.debian.org/debian/ squeeze main contrib non-free
+deb http://cdn.debian.net/debian/ squeeze main contrib non-free
+#deb-src http://cdn.debian.net/debian/ squeeze main contrib non-free
 
-deb http://ftp.tw.debian.org/debian/ squeeze-updates main contrib non-free
-deb-src http://ftp.tw.debian.org/debian/ squeeze-updates main contrib non-free
+deb http://cdn.debian.net/debian/ squeeze-updates main contrib non-free
+#deb-src http://cdn.debian.net/debian/ squeeze-updates main contrib non-free
 
-deb http://ftp.tw.debian.org/debian/ squeeze-proposed-updates main contrib non-free
-deb-src http://ftp.tw.debian.org/debian/ squeeze-proposed-updates main contrib non-free
+#deb http://cdn.debian.net/debian/ squeeze-proposed-updates main contrib non-free
+#deb-src http://cdn.debian.net/debian/ squeeze-proposed-updates main contrib non-free
 
-deb http://ftp.tw.debian.org/debian-backports squeeze-backports main contrib non-free
-deb-src http://ftp.tw.debian.org/debian-backports squeeze-backports main contrib non-free
+deb http://backports.debian.org/debian-backports squeeze-backports main contrib non-free
+#deb-src http://backports.debian.org/debian-backports squeeze-backports main contrib non-free
 
-deb http://ftp.tw.debian.org/debian-multimedia squeeze main non-free
-deb-src http://ftp.tw.debian.org/debian-multimedia squeeze main non-free
+#deb http://backports.debian.org/debian-backports squeeze-backports-sloppy main contrib non-free
+#deb-src http://backports.debian.org/debian-backports squeeze-backports-sloppy main contrib non-free
 
-deb http://mozilla.debian.net/ squeeze-backports iceweasel-release
-deb-src http://mozilla.debian.net/ squeeze-backports iceweasel-release
+deb http://mirror.optus.net/debian-multimedia squeeze main non-free
+#deb-src http://mirror.optus.net/debian-multimedia squeeze main non-free
+
+deb http://mirror.optus.net/debian-multimedia squeeze-backports main
+#deb-src http://mirror.optus.net/debian-multimedia squeeze-backports main
 ENDLINE
 
 if [ ! -d /etc/apt/apt.conf.d ]; then
