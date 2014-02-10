@@ -1,5 +1,9 @@
 #!/bin/sh
 
+exec > /var/log/late_command.log 2>&1
+
+set -x
+
 # gconf-defaults
 wget http://fourdollars.github.io/d-i/gconf-defaults -O /usr/share/gconf/defaults/99_fourdollars-favorite
 update-gconf-defaults
@@ -9,9 +13,6 @@ wget http://fourdollars.github.io/d-i/ttf-droid.tar.gz -O /root/ttf-droid.tar.gz
 tar xf /root/ttf-droid.tar.gz -C /
 rm -f /root/ttf-droid.tar.gz
 wget http://fourdollars.github.io/d-i/fonts.conf -O /etc/fonts/conf.d/99-fourdollars-favorite.conf
-
-# Input Method
-apt-get --yes purge libscim8c2a
 
 # Boot Splash
 if lspci -d 80ee:beef >/dev/null 2>&1; then
@@ -37,53 +38,6 @@ iface lo inet loopback
 #allow-hotplug eth0
 #iface eth0 inet dhcp
 ENDLINE
-
-# Source List
-cat > /etc/apt/sources.list <<ENDLINE
-deb http://security.debian.org/ squeeze/updates main contrib non-free
-#deb-src http://security.debian.org/ squeeze/updates main contrib non-free
-
-deb http://cdn.debian.net/debian/ squeeze main contrib non-free
-#deb-src http://cdn.debian.net/debian/ squeeze main contrib non-free
-
-deb http://cdn.debian.net/debian/ squeeze-updates main contrib non-free
-#deb-src http://cdn.debian.net/debian/ squeeze-updates main contrib non-free
-
-#deb http://cdn.debian.net/debian/ squeeze-proposed-updates main contrib non-free
-#deb-src http://cdn.debian.net/debian/ squeeze-proposed-updates main contrib non-free
-
-deb http://backports.debian.org/debian-backports squeeze-backports main contrib non-free
-#deb-src http://backports.debian.org/debian-backports squeeze-backports main contrib non-free
-
-#deb http://backports.debian.org/debian-backports squeeze-backports-sloppy main contrib non-free
-#deb-src http://backports.debian.org/debian-backports squeeze-backports-sloppy main contrib non-free
-
-deb http://mirror.optus.net/debian-multimedia squeeze main non-free
-#deb-src http://mirror.optus.net/debian-multimedia squeeze main non-free
-
-deb http://mirror.optus.net/debian-multimedia squeeze-backports main
-#deb-src http://mirror.optus.net/debian-multimedia squeeze-backports main
-ENDLINE
-
-if [ ! -d /etc/apt/apt.conf.d ]; then
-	mkdir -p /etc/apt/apt.conf.d
-fi
-
-cat > /etc/apt/apt.conf.d/10periodic <<ENDLINE
-APT::Periodic::Update-Package-Lists "1";
-APT::Periodic::Download-Upgradeable-Packages "0";
-APT::Periodic::Unattended-Upgrade "0";
-ENDLINE
-
-# VirtualBox OSE
-if lspci -d 80ee:beef >/dev/null 2>&1; then
-	apt-get --yes purge virtualbox-ose-guest-utils virtualbox-ose-guest-x11
-fi
-
-# LibreOffice
-apt-get update
-apt-get --yes install -t squeeze-backports iceweasel iceweasel-l10n-zh-tw libreoffice libreoffice-gnome libreoffice-l10n-zh-tw libreoffice-help-zh-tw
-apt-get --yes autoremove
 
 # GDM Auto Login
 USER=$(grep '1000:1000' /etc/passwd | cut -d ':' -f 1)
@@ -142,3 +96,55 @@ chown -R ${USER}:${USER} /home/${USER}/.vimrc
 chown root:utmp /usr/bin/fbterm
 chmod 6755 /usr/bin/fbterm
 sed -i 's/font-name=.*/font-name=unifont/' /etc/ucimf.conf
+
+# Source List
+cat > /etc/apt/sources.list <<ENDLINE
+deb http://security.debian.org/ squeeze/updates main contrib non-free
+#deb-src http://security.debian.org/ squeeze/updates main contrib non-free
+
+deb http://cdn.debian.net/debian/ squeeze main contrib non-free
+#deb-src http://cdn.debian.net/debian/ squeeze main contrib non-free
+
+deb http://cdn.debian.net/debian/ squeeze-updates main contrib non-free
+#deb-src http://cdn.debian.net/debian/ squeeze-updates main contrib non-free
+
+#deb http://cdn.debian.net/debian/ squeeze-proposed-updates main contrib non-free
+#deb-src http://cdn.debian.net/debian/ squeeze-proposed-updates main contrib non-free
+
+deb http://backports.debian.org/debian-backports squeeze-backports main contrib non-free
+#deb-src http://backports.debian.org/debian-backports squeeze-backports main contrib non-free
+
+#deb http://backports.debian.org/debian-backports squeeze-backports-sloppy main contrib non-free
+#deb-src http://backports.debian.org/debian-backports squeeze-backports-sloppy main contrib non-free
+
+deb http://mirror.optus.net/debian-multimedia squeeze main non-free
+#deb-src http://mirror.optus.net/debian-multimedia squeeze main non-free
+
+deb http://mirror.optus.net/debian-multimedia squeeze-backports main
+#deb-src http://mirror.optus.net/debian-multimedia squeeze-backports main
+ENDLINE
+
+if [ ! -d /etc/apt/apt.conf.d ]; then
+	mkdir -p /etc/apt/apt.conf.d
+fi
+
+cat > /etc/apt/apt.conf.d/10periodic <<ENDLINE
+APT::Periodic::Update-Package-Lists "1";
+APT::Periodic::Download-Upgradeable-Packages "0";
+APT::Periodic::Unattended-Upgrade "0";
+ENDLINE
+
+# Input Method
+apt-get purge libscim8c2a --yes
+
+# VirtualBox OSE
+if lspci -d 80ee:beef >/dev/null 2>&1; then
+	apt-get purge virtualbox-ose-guest-utils virtualbox-ose-guest-x11 --yes
+fi
+
+# LibreOffice
+apt-get update
+apt-get install -t squeeze-backports iceweasel iceweasel-l10n-zh-tw libreoffice libreoffice-gnome libreoffice-l10n-zh-tw libreoffice-help-zh-tw --yes
+
+# Housekeeping
+apt-get autoremove --purge --yes
