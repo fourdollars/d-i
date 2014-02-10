@@ -1,0 +1,141 @@
+#!/bin/sh
+
+# gconf-defaults
+wget http://fourdollars.github.io/d-i/gconf-defaults -O /usr/share/gconf/defaults/99_fourdollars-favorite
+update-gconf-defaults
+
+# Fonts
+wget http://fourdollars.github.io/d-i/ttf-droid.tar.gz -O /root/ttf-droid.tar.gz
+tar xf /root/ttf-droid.tar.gz -C /
+rm -f /root/ttf-droid.tar.gz
+wget http://fourdollars.github.io/d-i/fonts.conf -O /etc/fonts/conf.d/99-fourdollars-favorite.conf
+
+# Input Method
+apt-get --yes purge libscim8c2a
+
+# Boot Splash
+if lspci -d 80ee:beef >/dev/null 2>&1; then
+	cat >> /etc/default/grub <<ENDLINE
+GRUB_GFXMODE=800x600
+GRUB_GFXPAYLOAD_LINUX="800x600x32,800x600"
+ENDLINE
+fi
+sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT=.*/GRUB_CMDLINE_LINUX_DEFAULT="quiet splash"/' /etc/default/grub
+update-grub
+plymouth-set-default-theme --rebuild-initrd spacefun
+
+# Network Manager
+cat > /etc/network/interfaces <<ENDLINE
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# The primary network interface
+#allow-hotplug eth0
+#iface eth0 inet dhcp
+ENDLINE
+
+# Source List
+cat > /etc/apt/sources.list <<ENDLINE
+deb http://security.debian.org/ squeeze/updates main contrib non-free
+deb-src http://security.debian.org/ squeeze/updates main contrib non-free
+
+deb http://ftp.tw.debian.org/debian/ squeeze main contrib non-free
+deb-src http://ftp.tw.debian.org/debian/ squeeze main contrib non-free
+
+deb http://ftp.tw.debian.org/debian/ squeeze-updates main contrib non-free
+deb-src http://ftp.tw.debian.org/debian/ squeeze-updates main contrib non-free
+
+deb http://ftp.tw.debian.org/debian/ squeeze-proposed-updates main contrib non-free
+deb-src http://ftp.tw.debian.org/debian/ squeeze-proposed-updates main contrib non-free
+
+deb http://ftp.tw.debian.org/debian-backports squeeze-backports main contrib non-free
+deb-src http://ftp.tw.debian.org/debian-backports squeeze-backports main contrib non-free
+
+deb http://ftp.tw.debian.org/debian-multimedia squeeze main non-free
+deb-src http://ftp.tw.debian.org/debian-multimedia squeeze main non-free
+
+deb http://mozilla.debian.net/ squeeze-backports iceweasel-release
+deb-src http://mozilla.debian.net/ squeeze-backports iceweasel-release
+ENDLINE
+
+if [ ! -d /etc/apt/apt.conf.d ]; then
+	mkdir -p /etc/apt/apt.conf.d
+fi
+
+cat > /etc/apt/apt.conf.d/10periodic <<ENDLINE
+APT::Periodic::Update-Package-Lists "1";
+APT::Periodic::Download-Upgradeable-Packages "0";
+APT::Periodic::Unattended-Upgrade "0";
+ENDLINE
+
+# VirtualBox OSE
+if lspci -d 80ee:beef >/dev/null 2>&1; then
+	apt-get --yes purge virtualbox-ose-guest-utils virtualbox-ose-guest-x11
+fi
+
+# LibreOffice
+apt-get update
+apt-get --yes install -t squeeze-backports iceweasel iceweasel-l10n-zh-tw libreoffice libreoffice-gnome libreoffice-l10n-zh-tw libreoffice-help-zh-tw
+apt-get --yes autoremove
+
+# GDM Auto Login
+USER=$(grep '1000:1000' /etc/passwd | cut -d ':' -f 1)
+cat > /etc/gdm3/daemon.conf <<ENDLINE
+# GDM configuration storage
+#
+# See /usr/share/gdm/gdm.schemas for a list of available options.
+# Some settings can also be configured using the gdmsetup tool.
+
+[daemon]
+# AutomaticLoginEnable = false
+# AutomaticLogin =
+TimedLoginEnable=true
+TimedLogin=${USER}
+TimedLoginDelay=10
+
+[security]
+
+[xdmcp]
+
+[greeter]
+
+[chooser]
+
+[debug]
+ENDLINE
+
+# PCManX GTK+
+mkdir -p /etc/skel/.pcmanx
+cat > /etc/skel/.pcmanx/pcmanx <<ENDLINE
+[General]
+WebBrowser=xdg-open %s
+MailClient=xdg-open %s
+[Display]
+FontFamily=Droid Sans Fallback
+FontFamilyEn=文泉驛等寬正黑
+ENDLINE
+cp -a /etc/skel/.pcmanx /home/${USER}
+chown -R ${USER}:${USER} /home/${USER}/.pcmanx
+
+# Vim RC
+cat > /etc/skel/.vimrc <<ENDLINE
+syntax on
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
+if has("autocmd")
+  filetype plugin indent on
+endif
+set hls
+ENDLINE
+cp -a /etc/skel/.vimrc /home/${USER}
+chown -R ${USER}:${USER} /home/${USER}/.vimrc
+
+# UCIMF
+chown root:utmp /usr/bin/fbterm
+chmod 6755 /usr/bin/fbterm
+sed -i 's/font-name=.*/font-name=unifont/' /etc/ucimf.conf

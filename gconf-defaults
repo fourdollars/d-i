@@ -1,0 +1,12 @@
+/apps/gnome_settings_daemon/keybindings/www <Control><Alt>w
+/apps/gnome-terminal/keybindings/toggle_menubar F12
+/apps/gnome-terminal/profiles/Default/font Terminus 10
+/apps/gnome-terminal/profiles/Default/use_system_font false
+/apps/gnome-terminal/profiles/Default/scrollbar_position hidden
+/apps/gnome-terminal/profiles/Default/use_theme_colors false
+/apps/gnome-terminal/profiles/Default/foreground_color #AAAAAAAAAAAA
+/apps/gnome-terminal/profiles/Default/background_color #000000000000
+/apps/metacity/global_keybindings/run_command_terminal <Control><Alt>t
+/apps/nautilus/preferences/desktop_font Sans 11
+/desktop/ibus/engine/Chewing/plainZhuyin true
+/desktop/ibus/general/preload_engines [chewing]
