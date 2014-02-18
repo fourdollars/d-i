@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
+        <title>透過網路自動安裝 Ubuntu 12.04.4</title>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-517215-9', 'fourdollars.github.io');
+  ga('send', 'pageview');
+
+</script>
+    </head>
+    <body>
+        <h1>透過網路自動安裝 Ubuntu 12.04.4</h1>
+        <ol>
+            <li>首先要確定有線網路可以使用 DHCP 自動取得 IP 以及連上 Internet</li>
+            <li>如果是 i386 請到<a href="http://archive.ubuntu.com/ubuntu/dists/precise-updates/main/installer-i386/current/images/saucy-netboot/gtk/">這裡</a>下載 mini.iso，如果是 amd64 請到<a href="http://archive.ubuntu.com/ubuntu/dists/precise-updates/main/installer-amd64/current/images/saucy-netboot/gtk/">這裡</a>下載 mini.iso</li>
+            <li>將隨身碟接上有裝 Ubuntu 的電腦，然後執行 `sudo su -c "cat mini.iso &gt; /dev/sdb"`，其中 /dev/sdb 依實際情況調整</li>
+            <li>將隨身碟接上想要安裝 Ubuntu 的電腦，利用 BIOS 開機選單從隨身碟開機</li>
+            <img src="0.png">
+            <li>按下 Tab 鍵輸入 'auto=true url=fourdollars.github.io netcfg/get_hostname=ubuntu' 後按下 Enter 鍵</li>
+            <img src="1.png">
+            <li>然後就是放著讓它自己安裝完，最快約40分鐘左右，依網路頻寬跟速度決定，安裝完成後會自動關機。</li>
+        </ol>
+        <h2>第一次啟動系統進行初始化設定</h2>
+        <ul>
+            <li>選擇語言</li>
+            <img src="2.png">
+            <li>選擇時區</li>
+            <img src="3.png">
+            <li>選擇鍵盤</li>
+            <img src="4.png">
+            <li>帳號密碼</li>
+            <img src="5.png">
+            <li>登入畫面</li>
+            <img src="6.png">
+        </ul>
+    </body>
+</html>
