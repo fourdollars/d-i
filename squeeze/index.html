@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
+        <title>透過網路自動安裝 Debian 6.0.9</title>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-517215-9', 'fourdollars.github.io');
+  ga('send', 'pageview');
+
+</script>
+    </head>
+    <body>
+        <h1>製作可開機安裝 Debian 6.0.9 的 USB Stick</h1>
+        <p>首先去下載 <a
+          href="http://cdimage.debian.org/mirror/cdimage/archive/6.0.9/i386/iso-cd/">debian-6.0.9-i386-businesscard.iso</a>
+        (46M) 回來，然後再準備一個 USB Stick 接上電腦，如果 mount 在 Linux
+        系統上的話記得先 umount 掉， 以 root 權限執行以下命令 (這裡假設 USB Stick 的
+        Device Node 位於 /dev/sdc)
+        <pre># cat debian-6.0.9-i386-businesscard.iso &gt; /dev/sdc</pre>
+        這樣就可以製作出可開機安裝 Debian 6.0 的 USB Stick，沒錯就是這樣製作的，
+        這是 Debian 6.0 以後的新功能 hybrid CD/DVD image 不過只有在 i386/amd64
+        上面有作用。</p>
+        <h1>準備好要安裝的電腦跟可以透過有線網路 DHCP 上網的網路環境</h1>
+        <p>現在這隻 USB Stick 可以接上任何可以使用 USB Stick
+        開機的電腦上開機就會看到：</p><img src="menu.png">
+        <p>選擇 Help 之後</p><img src="boot.png">
+        <p>輸入</p>
+        <pre>auto url=fourdollars.github.io</pre>
+        <img src="auto.png">
+        <p>然後就是等 Debian 6.0 自動安裝完就會自動關機，這樣就把 Debian 6.0 安裝好了。</p>
+        <h1>接下來是開機展示</h1>
+        <p>GRUB 的畫面</p>
+        <img src="grub.png">
+        <p>開機動畫</p>
+        <img src="bootup.png">
+        <p>進入 GDM 了</p>
+        <img src="gdm.png">
+        <p>輸入預設的密碼</p>
+        <pre>debian</pre>
+        <img src="login.png">
+        <p>進入安裝好的 GNOME 桌面環境</p>
+        <img src="gnome.png">
+        <p>關機時也會有關機動畫</p>
+        <img src="poweroff.png">
+        <p>這個環境是按照 $4
+        個人的喜好所打造的，所以不一定會符合所有人的使用習慣，
+        像是 $4 喜歡使用酷音裡面的單純注音模式，不喜歡有 3D 桌面效果，
+        中文字型喜歡用 AR PL UMing 字型，英文喜歡使用 Droid 字型，
+        加入了 squeeze-backports 上面的 Iceweasel (Firefox) 跟 LibreOffice。</p>
+        <p>想要打造自己的 Debian 6.0 自動化安裝可以參考官方文件 <a
+          href="http://www.debian.org/releases/squeeze/i386/apb.html.en">Appendix
+          B. Automating the installation using preseeding</a></p>
+        <p>另外弄了一個半自動的安裝，讓使用者可以自己決定帳號密碼跟分割磁區。</p>
+        <pre>auto url=http://fourdollars.github.io/d-i/squeeze/manual.cfg</pre>
+    </body>
+</html>
