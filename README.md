@@ -1,4 +1,4 @@
-# Debian/Ubuntu 自動化安裝
+# $4 的 Debian/Ubuntu 自動化安裝
 
 ## 緣起
 
