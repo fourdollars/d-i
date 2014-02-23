@@ -27,22 +27,3 @@ case `dpkg --print-architecture` in
 		/usr/lib/x86_64-linux-gnu/lightdm/lightdm-set-defaults -a ${USER} -i true -m false -l false
 		;;
 esac
-
-# Vim RC
-cat > /etc/skel/.vimrc <<ENDLINE
-syntax on
-if has("autocmd")
-  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-endif
-if has("autocmd")
-  filetype plugin indent on
-endif
-set hls
-ENDLINE
-cp -a /etc/skel/.vimrc /home/${USER}
-chown -R ${USER}:${USER} /home/${USER}/.vimrc
-
-# UCIMF
-chown root:utmp /usr/bin/fbterm
-chmod 6755 /usr/bin/fbterm
-sed -i 's/font-name=.*/font-name=unifont/' /etc/ucimf.conf
