@@ -1,0 +1,48 @@
+#!/bin/sh
+
+exec > /var/log/late_command.log 2>&1
+
+set -x
+
+# Get default user
+USER=$(grep '1000:1000' /etc/passwd | cut -d ':' -f 1)
+
+# Boot Splash
+if lspci -d 80ee:beef >/dev/null 2>&1; then
+	cat >> /etc/default/grub <<ENDLINE
+GRUB_GFXMODE=800x600
+GRUB_GFXPAYLOAD_LINUX="800x600x32,800x600"
+ENDLINE
+fi
+sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT=.*/GRUB_CMDLINE_LINUX_DEFAULT="quiet splash"/' /etc/default/grub
+update-grub
+plymouth-set-default-theme --rebuild-initrd spacefun
+
+# LightDM auto login
+case `dpkg --print-architecture` in
+	(i386)
+		/usr/lib/i386-linux-gnu/lightdm/lightdm-set-defaults -a ${USER} -i true -m false -l false
+		;;
+	(amd64)
+		/usr/lib/x86_64-linux-gnu/lightdm/lightdm-set-defaults -a ${USER} -i true -m false -l false
+		;;
+esac
+
+# Vim RC
+cat > /etc/skel/.vimrc <<ENDLINE
+syntax on
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
+if has("autocmd")
+  filetype plugin indent on
+endif
+set hls
+ENDLINE
+cp -a /etc/skel/.vimrc /home/${USER}
+chown -R ${USER}:${USER} /home/${USER}/.vimrc
+
+# UCIMF
+chown root:utmp /usr/bin/fbterm
+chmod 6755 /usr/bin/fbterm
+sed -i 's/font-name=.*/font-name=unifont/' /etc/ucimf.conf
