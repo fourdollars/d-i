@@ -8,5 +8,5 @@
 
 ## 成果
 
-* [Debian 6.0.X](./squeeze/index.html) 使用 auto url=fourdollars.github.io
-* [Ubuntu 12.04.X](./precise/index.html) 加上 auto=true url=fourdollars.github.io netcfg/get_hostname=ubuntu
+* [Debian 6.0.X](https://fourdollars.github.io/d-i/squeeze/index.html) 使用 auto url=fourdollars.github.io
+* [Ubuntu 12.04.X](https://fourdollars.github.io/d-i/precise/index.html) 加上 auto=true url=fourdollars.github.io netcfg/get_hostname=ubuntu
