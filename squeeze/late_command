@@ -125,6 +125,10 @@ APT::Periodic::Download-Upgradeable-Packages "0";
 APT::Periodic::Unattended-Upgrade "0";
 ENDLINE
 
+cat > /etc/apt/apt.conf.d/10legacy <<ENDLINE
+Acquire::Check-Valid-Until "false";
+ENDLINE
+
 # Input Method
 apt-get purge libscim8c2a --yes
 
