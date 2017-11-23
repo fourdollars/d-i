@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
-        <title>透過網路自動安裝 Debian 6.0.9</title>
+        <title>透過網路自動安裝 Debian 6.0.10</title>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -15,13 +15,13 @@
 </script>
     </head>
     <body>
-        <h1>製作可開機安裝 Debian 6.0.9 的 USB Stick</h1>
+        <h1>製作可開機安裝 Debian 6.0.10 的 USB Stick</h1>
         <p>首先去下載 <a
-          href="http://cdimage.debian.org/mirror/cdimage/archive/6.0.9/i386/iso-cd/">debian-6.0.9-i386-businesscard.iso</a>
+          href="http://cdimage.debian.org/mirror/cdimage/archive/6.0.10/i386/iso-cd/">debian-6.0.10-i386-businesscard.iso</a>
         (46M) 回來，然後再準備一個 USB Stick 接上電腦，如果 mount 在 Linux
         系統上的話記得先 umount 掉， 以 root 權限執行以下命令 (這裡假設 USB Stick 的
         Device Node 位於 /dev/sdc)
-        <pre># cat debian-6.0.9-i386-businesscard.iso &gt; /dev/sdc</pre>
+        <pre># cat debian-6.0.10-i386-businesscard.iso &gt; /dev/sdc</pre>
         這樣就可以製作出可開機安裝 Debian 6.0 的 USB Stick，沒錯就是這樣製作的，
         這是 Debian 6.0 以後的新功能 hybrid CD/DVD image 不過只有在 i386/amd64
         上面有作用。</p>
