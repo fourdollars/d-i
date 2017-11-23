@@ -5,14 +5,14 @@ exec > /var/log/late_command.log 2>&1
 set -x
 
 # gconf-defaults
-wget https://fourdollars.github.io/d-i/gconf-defaults -O /usr/share/gconf/defaults/99_fourdollars-favorite
+wget http://fourdollars.github.io/d-i/gconf-defaults -O /usr/share/gconf/defaults/99_fourdollars-favorite
 update-gconf-defaults
 
 # Fonts
-wget https://fourdollars.github.io/d-i/ttf-droid.tar.gz -O /root/ttf-droid.tar.gz
+wget http://fourdollars.github.io/d-i/ttf-droid.tar.gz -O /root/ttf-droid.tar.gz
 tar xf /root/ttf-droid.tar.gz -C /
 rm -f /root/ttf-droid.tar.gz
-wget https://fourdollars.github.io/d-i/fonts.conf -O /etc/fonts/conf.d/99-fourdollars-favorite.conf
+wget http://fourdollars.github.io/d-i/fonts.conf -O /etc/fonts/conf.d/99-fourdollars-favorite.conf
 
 # Boot Splash
 if lspci -d 80ee:beef >/dev/null 2>&1; then
