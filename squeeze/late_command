@@ -99,14 +99,8 @@ sed -i 's/font-name=.*/font-name=unifont/' /etc/ucimf.conf
 
 # Source List
 cat > /etc/apt/sources.list <<ENDLINE
-deb http://archive.debian.org/ squeeze/updates main contrib non-free
-#deb-src http://archive.debian.org/ squeeze/updates main contrib non-free
-
 deb http://archive.debian.org/debian/ squeeze main contrib non-free
 #deb-src http://archive.debian.org/debian/ squeeze main contrib non-free
-
-deb http://archive.debian.org/debian/ squeeze-updates main contrib non-free
-#deb-src http://archive.debian.org/debian/ squeeze-updates main contrib non-free
 
 deb http://archive.debian.org/debian/ squeeze-lts main contrib non-free
 #deb-src http://archive.debian.org/debian/ squeeze-lts main contrib non-free
